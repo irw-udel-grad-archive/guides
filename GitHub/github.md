@@ -11,7 +11,7 @@ GitHub is a place where you can keep milestones and working versions of software
     - [VS Code](https://code.visualstudio.com/) (by Microsoft)
     - [Atom](https://atom.io/) (by GitHub)
 2. Install [Github Desktop](https://desktop.github.com/)
-3. Install [Git](https://git-scm.com/). This can also be done through GitHub Desktop.
+3. Install [Git](https://git-scm.com/). This can also be done through GitHub Desktop or by following the guide [here](https://github.com/git-guides/install-git).
     - To go with updates to GitHub, you can keep all of the defaults during installation, but change the default branch name to `main`
 4. Do the [forking tutorial](https://guides.github.com/activities/forking/)  
     
