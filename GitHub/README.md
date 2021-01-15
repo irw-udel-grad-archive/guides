@@ -33,3 +33,6 @@ GitHub is a place where you can keep milestones and working versions of software
 * `$ git push --mirror https://github.com/woodwirk/new-repository`
     * When you run this, you'll also need to authorize the git credential manager through your browser
 * Now you can make changes and push to your private repo
+
+## Outlook
+GitHub is a cool tool for keeping your work organized and sharing it with others, even if you're not a software developer. For an idea of good practices, get started [here](https://guides.github.com/introduction/flow/) and check out the rest of [GitHub Guides](https://guides.github.com/).
