@@ -1,10 +1,5 @@
 # Python - Quickstart
-
-## Personal musing
-For a while, I resisted learning or using Python. It seemed more wild and free than other languages, and unlike MATLAB or R, I didn't know where Python *lived*. But if you're doing any kind of scientific computing, especially using open source tools, it's hard to resist for long. So here's something to make the transition easier.
-
-Let's get started. I'm going to assume that you're here because you actually want to run Python, so there are a couple of things to go over before you run any code.
-
+Welcome! Let's get started. I'm going to assume that you're here because you actually want to run Python, so there are a couple of things to go over before you run any code.
 
 ## Setup
 1. Install [Anaconda](https://www.anaconda.com/products/individual).  
