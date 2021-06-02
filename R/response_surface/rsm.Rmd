@@ -1,0 +1,84 @@
+---
+title: "rsm_test"
+author: "irw"
+date: "1/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is a test of the RSM package and its use for running an experimental design.
+
+It is adapted from the guide by the author, Russ Lenth. 
+https://cran.r-project.org/web/packages/rsm/vignettes/rsm.pdf
+https://cran.r-project.org/web/packages/rsm/rsm.pdf
+
+```{r}
+library(rsm)
+library(tidyverse)
+library(ggpubr)
+```
+
+Let's look at some of the data provided in the `rsm` package to see what a central composite design looks like. ChemReact was a dataset collected in 2 parts (blocks). First, the data in ChemReact1 was collected. Then the data from ChemReact2 was collected for further analysis.
+
+```{r}
+ChemReact
+ggscatter(ChemReact1, "Time", "Temp")
+ggscatter(ChemReact2, "Time", "Temp")
+ggscatter(ChemReact, "Time", "Temp", color = "Block")
+```
+
+In order to use this data with the `rsm` functions, it has to be coded. The values of time are centered around 85 and vary by +/-5; with temperature, the values are centered about 175 +/- 5.
+
+```{r}
+CR1 <- coded.data(ChemReact1, x1 ~ (Time - 85)/5, x2 ~ (Temp - 175)/5)
+CR1
+tibble(CR1)
+```
+
+
+The `ccd.pick()` function describes available central composite designs based on the input parameters.
+```{r}
+ccd.pick(2)
+```
+
+The `ccd()` function shows the run order, treatments, and blocks in the central composite design selected.
+
+```{r}
+ccd(2)
+```
+
+The default behavior is to choose 4 replicates at the center. But from `ccd.pick()`, we can see that having one center point is an option.
+
+```{r}
+ccd(2, n0=1)
+```
+
+
+To make a response surface after defining the design and collecting the data, you have to first make a model.
+```{r}
+CR1.rsm <- rsm(Yield ~ FO(x1, x2), data = CR1)
+summary(CR1.rsm)
+```
+
+This model should be avoided because of the low Lack of Fit p-value (~0.01). Take a look at the model for a two way interaction. This can be done by simply updating the model.
+```{r}
+CR1.rsmi <- update(CR1.rsm, . ~ . + TWI(x1, x2))
+summary(CR1.rsmi)
+```
+
+Given the low Lack of Fit p-value, the model needs more data. Enter the second block. The `djoin` function will automatically code the variables and add the blocks.
+
+```{r}
+CR2 <- djoin(CR1, ChemReact2)
+CR2
+```
+
+Now there is enough information to fit a second order model, but the blocks should be accounted for in the new model.
+```{r}
+CR2.rsm <- rsm(Yield ~ Block + SO(x1, x2), data = CR2)
+summary(CR2.rsm)
+```
+
