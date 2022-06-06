@@ -2,7 +2,9 @@
 title: "rsm_test"
 author: "irw"
 date: "1/29/2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -80,5 +82,11 @@ Now there is enough information to fit a second order model, but the blocks shou
 ```{r}
 CR2.rsm <- rsm(Yield ~ Block + SO(x1, x2), data = CR2)
 summary(CR2.rsm)
+```
+
+```{r}
+contour(CR2.rsm, ~ x1 + x2,
+        image = TRUE,
+        at = summary(CR2.rsm)$canonical$xs)
 ```
 
